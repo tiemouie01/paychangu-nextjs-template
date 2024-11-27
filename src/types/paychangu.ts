@@ -10,7 +10,7 @@ export type LevelMeta = {
 
 export type LevelData = {
   amount: number;
-  currency: string;
+  currency: "MWK" | "USD";
   email: string;
   first_name: string;
   last_name: string;
