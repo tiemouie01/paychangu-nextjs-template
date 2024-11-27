@@ -22,7 +22,4 @@ export const formSchema = z.object({
   returnUrl: z.string().url({
     message: "Please enter a valid URL.",
   }),
-  tx_ref: z.string().uuid({
-    message: "Please enter a valid UUID.",
-  }),
 });
