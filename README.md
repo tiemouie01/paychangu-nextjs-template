@@ -1,14 +1,6 @@
 # PayChangu Integration Template for Next.js
 
-This template provides a starting point for integrating [PayChangu](https://paychangu.com/), a payment gateway platform for Malawi, into a Next.js project. It includes essential functionalities such as
-
-checkout()
-
-,
-
-verifyTransaction()
-
-, and a finalize payment API route to handle webhook responses from PayChangu upon transaction completion.
+This template provides a starting point for integrating [PayChangu](https://paychangu.com/), a payment gateway platform for Malawi, into a Next.js project. It includes essential functionalities such as checkout(), verifyTransaction(), and a finalize payment API route to handle webhook responses from PayChangu upon transaction completion.
 
 ## Table of Contents
 
@@ -67,15 +59,9 @@ PAYCHANGU_SECRET_KEY=your_paychangu_secret_key
 
 ### Checkout Function
 
-The
+The checkout() function initiates a payment by sending a request to PayChangu's Level API and redirects the user to the checkout URL.
 
-checkout()
-
-function initiates a payment by sending a request to PayChangu's Level API and redirects the user to the checkout URL.
-
-**Location:**
-
-actions.ts
+**Location:** actions.ts
 
 **Function Signature:**
 
@@ -109,11 +95,7 @@ export async function checkout(values: z.infer<typeof formSchema>);
 
 **Explanation:**
 
-- Generates a unique transaction reference (
-
-tx_ref
-
-).
+- Generates a unique transaction reference (tx_ref).
 
 - Prepares the payment data in the format required by PayChangu.
 - Makes a POST request to `https://api.paychangu.com/payment` with the payment details.
@@ -121,19 +103,9 @@ tx_ref
 
 ### Verify Transaction Function
 
-The
+The verifyTransaction() function checks the status of a transaction using the tx_ref.
 
-verifyTransaction()
-
-function checks the status of a transaction using the
-
-tx_ref
-
-.
-
-**Location:**
-
-payment-helpers.ts
+**Location:** payment-helpers.ts
 
 **Function Signature:**
 
@@ -165,31 +137,16 @@ export async function verifyTransaction(tx_ref: string): Promise<string>;
 
 The finalize payment API route handles webhook callbacks from PayChangu after a transaction is completed.
 
-**Location:**
-
-route.ts
+**Location:** route.ts
 
 **Function Handlers:**
 
--
-
-GET
-
-: Redirects to the home page or any desired page.
-
--
-
-POST
-
-: Processes the webhook payload.
+- GET: Redirects to the home page or any desired page.
+- POST: Processes the webhook payload.
 
 **Usage:**
 
-1. \*\*Set the
-
-callbackUrl
-
-in your checkout data to point to this route:\*\*
+1. \*\*Set the callbackUrl in your checkout data to point to this route:\*\*
 
 ```typescript
 callback_url: "https://yourdomain.com/api/finalize-payment",
@@ -235,12 +192,9 @@ callback_url: "https://yourdomain.com/api/finalize-payment",
   - Redirects to the home page or a specified URL when accessed via a browser.
 
 - **POST Handler:**
+
   - Parses the webhook payload sent by PayChangu.
-  - Verifies the transaction using
-
-verifyTransaction()
-
-to ensure it's legitimate.
+  - Verifies the transaction using verifyTransaction() to ensure it's legitimate.
 
 - Upon successful verification, processes the transaction (e.g., update database records).
 - Returns appropriate HTTP responses based on the outcome.
@@ -248,18 +202,7 @@ to ensure it's legitimate.
 ### Important Notes
 
 - Ensure that your server is accessible over HTTPS when testing webhooks locally. Tools like [ngrok](https://ngrok.com/) can help expose your local server to the internet securely.
-- Store the
-
-tx_ref
-
-in your database if you need to keep track of transactions for future reference.
-
+- Store the tx_ref in your database if you need to keep track of transactions for future reference.
 - Always verify transactions on your server side to prevent fraudulent activities.
 
-## License
-
-This project is licensed under the MIT License.
-
----
-
-For more information on integrating with PayChangu, refer to the [official documentation](https://developers.paychangu.com/).
+For more information on integrating with PayChangu, refer to the [official documentation](https://paychangu.readme.io).
