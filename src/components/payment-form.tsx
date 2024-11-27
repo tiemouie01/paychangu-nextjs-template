@@ -24,33 +24,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-// Form schema definition with zod
-const formSchema = z.object({
-  firstname: z.string().min(2, {
-    message: "Firstname must be at least 2 characters.",
-  }),
-  lastname: z.string().min(2, {
-    message: "lastname must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  currency: z.enum(["MWK", "USD"], {
-    message: "Please select a valid currency.",
-  }),
-  amount: z.number().int().positive({
-    message: "Please enter a valid amount.",
-  }),
-  callbackUrl: z.string().url({
-    message: "Please enter a valid URL.",
-  }),
-  returnUrl: z.string().url({
-    message: "Please enter a valid URL.",
-  }),
-});
+import { formSchema } from "@/lib/form-schemas";
+import { checkout } from "@/app/actions";
 
 export default function PaymentForm() {
+  // Define the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,11 +42,9 @@ export default function PaymentForm() {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    // Get the checkout url by making a call to the PayChangu Level API
+    checkout(values);
   }
 
   return (
@@ -223,7 +199,7 @@ export default function PaymentForm() {
           className="md:col-span-2"
           disabled={form.formState.isSubmitting}
         >
-          Get Checkout URL
+          Checkout
         </Button>
       </form>
     </Form>
