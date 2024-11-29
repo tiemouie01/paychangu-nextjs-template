@@ -13,7 +13,7 @@ export const formSchema = z.object({
   currency: z.enum(["MWK", "USD"], {
     message: "Please select a valid currency.",
   }),
-  amount: z.number().int().positive({
+  amount: z.coerce.number().int().positive({
     message: "Please enter a valid amount.",
   }),
   callbackUrl: z.string().url({
