@@ -108,7 +108,7 @@ export default function PaymentForm() {
                 <FormControl>
                   <Input placeholder="Miamba" {...field} />
                 </FormControl>
-                <FormDescription>Your lastname name.</FormDescription>
+                <FormDescription>Your last name.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -186,8 +186,8 @@ export default function PaymentForm() {
                 </FormControl>
                 <FormDescription>
                   The URL paychangu will redirect to after a transaction is
-                  complete. Note that a flaw in the implementation makes it so
-                  that the callback URL acts aslo as the return URL.
+                  complete. Make this the same as the callback URL to avoid
+                  issues caused by redirects.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
