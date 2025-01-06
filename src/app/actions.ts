@@ -28,7 +28,7 @@ export async function checkout(values: z.infer<typeof formSchema>) {
   };
 
   // Send a fetch request to the PayChangu API using your secret key and the data
-  const response = await fetch("https://api.paychangu.com/payment", {
+  const response = await fetch("https://checkout.paychangu.com/payment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
