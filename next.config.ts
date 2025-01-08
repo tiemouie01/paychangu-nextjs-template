@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    CHECKOUT_URL: process.env.CHECKOUT_URL,
+  },
 };
 
 export default nextConfig;
